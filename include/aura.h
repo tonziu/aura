@@ -23,4 +23,7 @@ void aura_EndFrame(aura_Window_t* window);
 
 void aura_CloseWindow(aura_Window_t* window);
 
+int aura_CompileShader(const char* src, GLenum type, GLuint* shader);
+int aura_LinkProgram(GLuint vshader, GLuint fshader, GLuint* program);
+
 #endif // H_AURA_H
