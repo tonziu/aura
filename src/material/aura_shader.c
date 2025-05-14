@@ -40,3 +40,20 @@ int aura_LinkProgram(GLuint vshader, GLuint fshader, GLuint* program)
     glDeleteShader(fshader);
     return AURA_SUCCESS;
 }
+
+int aura_SetProgramUniform_3f(GLuint program, const char* name, float x, 
+                                                                float y, 
+                                                                float z)
+{
+    glUseProgram(program);
+    glUniform3f(glGetUniformLocation(program, name), x, y, z);
+    glUseProgram(0);
+    return AURA_SUCCESS;
+}
+
+int aura_SetProgramUniform_Mat4(GLuint program, const char* name, mat4 m)
+{
+    glUseProgram(program);
+    glUniformMatrix4fv(glGetUniformLocation(program, name), 1, GL_FALSE, &m[0][0]);
+    return AURA_SUCCESS;
+}

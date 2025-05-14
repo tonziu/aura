@@ -19,6 +19,9 @@ int aura_InitWindow(int width, int height, const char* title, aura_Window_t* win
 
     glViewport(0, 0, width, height);
 
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
     return AURA_SUCCESS;
 }
 
@@ -30,6 +33,7 @@ bool aura_WindowShouldClose(aura_Window_t* window)
 void aura_BeginFrame(aura_Window_t* window)
 {
     glfwPollEvents();
+    glClear(GL_COLOR_BUFFER_BIT);
 }
 
 void aura_EndFrame(aura_Window_t* window)
@@ -42,4 +46,9 @@ void aura_CloseWindow(aura_Window_t* window)
 {
     if (window->win_ptr) glfwDestroyWindow(window->win_ptr);
     glfwTerminate();
+}
+
+void aura_SetBackgroundColorF(float r, float g, float b, float a)
+{
+    glClearColor(r, g, b, a);
 }
