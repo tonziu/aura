@@ -1,3 +1,1 @@
-# Aura
-
-![image](https://github.com/user-attachments/assets/7f8fc14d-ca02-4cb6-9882-5c43bc9f71f9)
+![aura_logo_medium](https://github.com/user-attachments/assets/b01ec90c-7ee5-4b30-8015-6ba26f55535b)
