@@ -19,10 +19,10 @@ int main(void)
     ret = textrenderer_Init(SCREEN_W, SCREEN_H, &textrenderer);
     if (ret == AURA_ERROR) return AURA_ERROR;
 
-    aura_Color bgcolor = {22 / 255.0f, 22 / 255.0f, 22 / 255.0f, 1.0f};
+    aura_Color bgcolor = AURA_RETRO_GREEN;
     context_ClearColor(bgcolor, &ctx);
 
-    aura_Color textcolor = {0.1, 0.8, 0.8, 1.0};
+    aura_Color textcolor = AURA_RETRO_YELLOW;
 
     const char* text = "Hello From Aura!";
     float textscale = 1.0f;

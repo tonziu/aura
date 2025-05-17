@@ -22,6 +22,19 @@ int context_Init(int w, int h, const char* title, aura_Context* ctx)
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);  
 
+    GLFWimage icon_image_xs;
+    GLFWimage icon_image_s;
+    GLFWimage icon_image_m;
+    GLFWimage icon_image_l;
+
+    GLFWimage icons[4];
+    utils_LoadImage("../resources/images/aura_logo_extrasmall.png", &icons[0]);
+    utils_LoadImage("../resources/images/aura_logo_small.png", &icons[1]);
+    utils_LoadImage("../resources/images/aura_logo_medium.png", &icons[2]);
+    utils_LoadImage("../resources/images/aura_logo_large.png", &icons[3]);
+     
+    glfwSetWindowIcon(ctx->window, 4, icons);
+
     return AURA_OK;
 }
 

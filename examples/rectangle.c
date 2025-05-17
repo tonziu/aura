@@ -15,11 +15,11 @@ int main(void)
     ret = renderer_Init(SCREEN_W, SCREEN_H, &renderer);
     if (ret == AURA_ERROR) return AURA_ERROR;
 
-    aura_Color bgcolor = {22 / 255.0f, 22 / 255.0f, 22 / 255.0f, 1.0f};
+    aura_Color bgcolor = AURA_RETRO_GREEN;
     context_ClearColor(bgcolor, &ctx);
 
     aura_Rectangle rect = {200, 200, 400, 200};
-    aura_Color rectcolor = {20 / 255.0f, 250 / 255.0f, 80 / 255.0f, 1.0f};
+    aura_Color rectcolor = AURA_RETRO_YELLOW;
     vec3 axis = {0, 0, -1};
     float angle = glm_rad(45);
 

@@ -22,6 +22,9 @@ typedef struct
     float a;
 } aura_Color;
 
+#define AURA_RETRO_GREEN {75 / 255.0f, 105 / 255.0f, 47 / 255.0f, 1.0f}
+#define AURA_RETRO_YELLOW {228 / 255.0f, 216 / 255.0f, 172 / 255.0f, 1.0}
+
 typedef struct
 {
     GLFWwindow* window;
@@ -121,7 +124,7 @@ void mesh_AddAttributeF(aura_VertexAttributeF attr, aura_Mesh* mesh);
 // -------------------------------------------------------------------------------
 
 int utils_ReadTextFile(const char* filename, char* buffer, int len);
-
+int utils_LoadImage(const char* filename, GLFWimage* image);
 // -------------------------------------------------------------------------------
 
 
