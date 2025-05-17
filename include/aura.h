@@ -3,6 +3,7 @@
 
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
+#include "cglm/cglm.h"
 
 #include <stdbool.h>
 
@@ -107,6 +108,8 @@ int material_LinkProgram(const char* vsrc, const char* fsrc,
                                                aura_Material* material);
 int material_InitProgram(const char* vs_path, const char* fs_path, 
                                                aura_Material* material);
+int material_GetUniformLocation(const char* name, int* loc, aura_Material* material);
+int material_SetUniformMat4(mat4 data, const char* name, aura_Material* material);
 
 // -------------------------------------------------------------------------------
 
@@ -116,7 +119,7 @@ int material_InitProgram(const char* vs_path, const char* fs_path,
 // Renderable functions
 // -------------------------------------------------------------------------------
 
-int renderable_Rectangle(aura_Renderable* renderable);
+int renderable_Rectangle(aura_Renderable* renderable, int screen_w, int screen_h);
 
 // -------------------------------------------------------------------------------
 
@@ -124,8 +127,8 @@ int renderable_Rectangle(aura_Renderable* renderable);
 // Renderer functions
 // -------------------------------------------------------------------------------
 
-int renderer_Init(aura_Renderer* renderer);
-void renderer_DrawRectangle(aura_Renderer* renderer);
+int renderer_Init(aura_Renderer* renderer, int screen_w, int screen_h);
+void renderer_DrawRectangle(aura_Rectangle rect, aura_Renderer* renderer);
 
 // -------------------------------------------------------------------------------
 

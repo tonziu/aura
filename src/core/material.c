@@ -65,3 +65,26 @@ int material_InitProgram(const char* vs_path,
     int ret = material_LinkProgram(vsrc, fsrc, material);
     return ret;
 }
+
+int material_GetUniformLocation(const char* name, int* loc, aura_Material* material)
+{
+    *loc = glGetUniformLocation(material->program, name);
+    if (*loc == -1)
+    {
+        printf("Error: %s not found.\n", name);
+        return AURA_ERROR;
+    }
+    return AURA_OK;
+}
+
+int material_SetUniformMat4(mat4 data, const char* name, aura_Material* material)
+{
+    int loc, ret;
+    ret = material_GetUniformLocation(name, &loc, material);
+    if (ret == AURA_ERROR) return ret;
+
+    glUniformMatrix4fv(loc, 1, GL_FALSE, &data[0][0]);
+
+    return AURA_OK;
+}
+

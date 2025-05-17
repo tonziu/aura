@@ -1,22 +1,31 @@
 #include "aura.h"
 
-int renderable_Rectangle(aura_Renderable* renderable)
+
+int renderable_Rectangle(aura_Renderable* renderable, int screen_w, int screen_h)
 {
     int ret = material_InitProgram("../resources/shaders/rect.vs", 
                                    "../resources/shaders/rect.fs",
                                    &renderable->material);
 
     if (ret == AURA_ERROR) return AURA_ERROR;
+
+    glUseProgram(renderable->material.program);
+    mat4 proj;
+    glm_ortho(0, screen_w, screen_h, 0, -1, 1, proj);
+    ret = material_SetUniformMat4(proj, "projection", &renderable->material);
+    glUseProgram(0);
+
+    if (ret == AURA_ERROR) return AURA_ERROR;
     
     float vertices[12] =
     {
-        -0.5f, -0.5f,
-         0.5f, -0.5f,
-         0.5f,  0.5f,
+        0.0f, 0.0f,
+        1.0f, 0.0f,
+        1.0f, 1.0f,
 
-         0.5f,  0.5f,
-        -0.5f,  0.5f,
-        -0.5f, -0.5f,
+        1.0f, 1.0f,
+        0.0f, 1.0f,
+        0.0f, 0.0f,
     };
 
     aura_VertexAttributeF pos_attr = {0, 2, 2, 0};
