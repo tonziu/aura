@@ -24,11 +24,13 @@ add_executable(Rectangle examples/rectangle.c ${AURA_SRC_FILES})
 add_executable(Text examples/text.c ${AURA_SRC_FILES})
 add_executable(Sprite examples/sprite.c ${AURA_SRC_FILES})
 add_executable(Keyboard examples/keyboard.c ${AURA_SRC_FILES})
+add_executable(Mouse examples/mouse.c ${AURA_SRC_FILES})
 
 target_link_libraries(Window PRIVATE ${AURA_LIBS})
 target_link_libraries(Rectangle PRIVATE ${AURA_LIBS})
 target_link_libraries(Text PRIVATE ${AURA_LIBS})
 target_link_libraries(Sprite PRIVATE ${AURA_LIBS})
 target_link_libraries(Keyboard PRIVATE ${AURA_LIBS})
+target_link_libraries(Mouse PRIVATE ${AURA_LIBS})
 
 

@@ -14,6 +14,8 @@
 #define AURA_RETRO_GREEN (aura_Color){75 / 255.0f, 105 / 255.0f, 47 / 255.0f, 1.0f}
 #define AURA_RETRO_YELLOW (aura_Color){228 / 255.0f, 216 / 255.0f, 172 / 255.0f, 1.0}
 #define AURA_RETRO_BROWN (aura_Color){102 / 255.0f, 57 / 255.0f, 49 / 255.0f, 1.0}
+#define AURA_RETRO_WHITE (aura_Color){237 / 255.0f, 234 / 255.0f, 226 / 255.0f, 1.0}
+#define AURA_RETRO_RED (aura_Color){251/255.0f, 46/255.0f, 1/255.0f, 1.0}
 
 typedef struct
 {
@@ -35,6 +37,8 @@ typedef struct
     int prev_state[GLFW_MOUSE_BUTTON_LAST + 1];
     int curr_state[GLFW_MOUSE_BUTTON_LAST + 1];
     bool consumed[GLFW_MOUSE_BUTTON_LAST + 1];
+    double x;
+    double y;
 } aura_Mouse;
 
 typedef struct
@@ -129,6 +133,8 @@ void context_ClearColor(aura_Color color, aura_Context* ctx);
 void context_Close(aura_Context* ctx);
 bool context_KeyIsPressed(int key, aura_Context* ctx);
 void context_CloseWindow(aura_Context* ctx);
+void context_GetMousePos(double* posx, double* posy, aura_Context* ctx);
+bool context_MouseIsPressed(int button, aura_Context* ctx);
 
 // -------------------------------------------------------------------------------
 

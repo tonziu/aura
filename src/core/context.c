@@ -8,6 +8,21 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
     ctx->keyboard.consumed[key] = false;
 }
 
+void cursor_pos_callback(GLFWwindow* window, double xpos, double ypos)
+{
+    aura_Context* ctx = (aura_Context*) glfwGetWindowUserPointer(window);
+    ctx->mouse.x = xpos;
+    ctx->mouse.y = ypos;
+}
+
+void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
+{
+    aura_Context* ctx = (aura_Context*) glfwGetWindowUserPointer(window);
+    ctx->mouse.prev_state[button] = ctx->mouse.curr_state[button];
+    ctx->mouse.curr_state[button] = action;
+    ctx->mouse.consumed[button] = false;
+}
+
 int context_Init(int w, int h, const char* title, aura_Context* ctx)
 {
     if (!glfwInit()) return AURA_ERROR;
@@ -25,6 +40,8 @@ int context_Init(int w, int h, const char* title, aura_Context* ctx)
     glfwSwapInterval(1);
     glfwSetWindowUserPointer(ctx->window, ctx);
     glfwSetKeyCallback(ctx->window, key_callback);
+    glfwSetCursorPosCallback(ctx->window, cursor_pos_callback);
+    glfwSetMouseButtonCallback(ctx->window, mouse_button_callback);
 
     if (!gladLoadGL()) return AURA_ERROR;
 
@@ -86,4 +103,18 @@ bool context_KeyIsPressed(int key, aura_Context* ctx)
 void context_CloseWindow(aura_Context* ctx)
 {
     glfwSetWindowShouldClose(ctx->window, true);
+}
+
+void context_GetMousePos(double* posx, double* posy, aura_Context* ctx)
+{
+    *posx = ctx->mouse.x;
+    *posy = ctx->mouse.y;
+}
+
+bool context_MouseIsPressed(int button, aura_Context* ctx)
+{
+    if (ctx->mouse.consumed[button]) return false;
+    ctx->mouse.consumed[button] = true;
+    bool is_down = ctx->mouse.curr_state[button] == GLFW_PRESS;
+    return is_down;
 }
