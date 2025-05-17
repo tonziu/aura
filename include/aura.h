@@ -4,6 +4,10 @@
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
 #include "cglm/cglm.h"
+#include "ft2build.h"
+#include FT_FREETYPE_H
+
+#define AURA_MAX_GLYPHS 128
 
 #include <stdbool.h>
 
@@ -60,6 +64,29 @@ typedef struct
 {
     aura_Renderable rectangle;
 } aura_Renderer;
+
+typedef struct
+{
+    GLuint texture;
+    float w;
+    float h;
+    float bearingx;
+    float bearingy;
+    GLuint advance;
+} aura_Glyph;
+
+typedef struct
+{
+    FT_Face face;
+    aura_Glyph glyphs[AURA_MAX_GLYPHS];
+} aura_Font;
+
+typedef struct
+{
+    FT_Library ft;
+    aura_Font font;
+    aura_Renderable text;
+} aura_TextRenderer;
 
 // -------------------------------------------------------------------------------
 // Context Functions
@@ -119,7 +146,8 @@ int material_SetUniformVec4(vec4 data, const char* name, aura_Material* material
 // Renderable functions
 // -------------------------------------------------------------------------------
 
-int renderable_Rectangle(aura_Renderable* renderable, int screen_w, int screen_h);
+int renderable_Rectangle(int screen_w, int screen_h, aura_Renderable* renderable);
+int renderable_Text(int screen_w, int screen_h, aura_Renderable* renderable);
 
 // -------------------------------------------------------------------------------
 
@@ -127,12 +155,46 @@ int renderable_Rectangle(aura_Renderable* renderable, int screen_w, int screen_h
 // Renderer functions
 // -------------------------------------------------------------------------------
 
-int renderer_Init(aura_Renderer* renderer, int screen_w, int screen_h);
+int renderer_Init(int screen_w, int screen_h, aura_Renderer* renderer);
 void renderer_DrawRectangle(aura_Rectangle rect, aura_Color color,
                             aura_Renderer* renderer);
 void renderer_DrawRectangleEx(aura_Rectangle rect, aura_Color color,
                             float angle, vec3 axis, aura_Renderer* renderer);
 
 // -------------------------------------------------------------------------------
+
+
+
+// -------------------------------------------------------------------------------
+// Glyph functions
+// -------------------------------------------------------------------------------
+
+void glyph_Init(FT_Face face, unsigned char c, aura_Glyph* glyph);
+
+// -------------------------------------------------------------------------------
+
+
+
+// -------------------------------------------------------------------------------
+// Font functions
+// -------------------------------------------------------------------------------
+
+void font_InitGlyphs(aura_Font* font);
+int font_Init(const char* filename, FT_Library ft, aura_Font* font);
+// -------------------------------------------------------------------------------
+
+
+
+// -------------------------------------------------------------------------------
+// Text Renderer functions
+// -------------------------------------------------------------------------------
+
+int textrenderer_Init(int screen_w, int screen_h, aura_TextRenderer* renderer);
+void textrenderer_DrawText(const char* text, 
+                           float x, float y, float scale, aura_Color color,
+                           aura_TextRenderer* renderer);
+float textrenderer_MeasureText(const char* text, float scale, 
+                                aura_TextRenderer* renderer);
+// -------------------------------------------------------------------------------/
 
 #endif // H_AURA_H

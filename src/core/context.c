@@ -19,6 +19,8 @@ int context_Init(int w, int h, const char* title, aura_Context* ctx)
     if (!gladLoadGL()) return AURA_ERROR;
 
     glViewport(0, 0, w, h);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);  
 
     return AURA_OK;
 }

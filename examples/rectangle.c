@@ -12,7 +12,7 @@ int main(void)
     ret = context_Init(SCREEN_W, SCREEN_H, "Rectangle", &ctx);
     if (ret == AURA_ERROR) return AURA_ERROR;
 
-    ret = renderer_Init(&renderer, SCREEN_W, SCREEN_H);
+    ret = renderer_Init(SCREEN_W, SCREEN_H, &renderer);
     if (ret == AURA_ERROR) return AURA_ERROR;
 
     aura_Color bgcolor = {22 / 255.0f, 22 / 255.0f, 22 / 255.0f, 1.0f};

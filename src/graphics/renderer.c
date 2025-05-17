@@ -1,8 +1,8 @@
 #include "aura.h"
 
-int renderer_Init(aura_Renderer* renderer, int screen_w, int screen_h)
+int renderer_Init(int screen_w, int screen_h, aura_Renderer* renderer)
 {
-    int ret = renderable_Rectangle(&renderer->rectangle, screen_w, screen_h);
+    int ret = renderable_Rectangle(screen_w, screen_h, &renderer->rectangle);
     return ret;
 }
 
