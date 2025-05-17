@@ -30,8 +30,6 @@ bool context_WindowShouldClose(aura_Context* ctx)
 
 void context_BeginFrame(aura_Context* ctx)
 {
-    glClearColor(ctx->bgcolor[0], ctx->bgcolor[1], 
-                 ctx->bgcolor[2], ctx->bgcolor[3]);
     glClear(GL_COLOR_BUFFER_BIT);
 }
 
@@ -42,12 +40,9 @@ void context_EndFrame(aura_Context* ctx)
     glFinish();
 }
 
-void context_SetBgColor(aura_Color color, aura_Context* ctx)
+void context_ClearColor(aura_Color color, aura_Context* ctx)
 {
-    ctx->bgcolor[0] = color.r / 255.0f;
-    ctx->bgcolor[1] = color.g / 255.0f;
-    ctx->bgcolor[2] = color.b / 255.0f;
-    ctx->bgcolor[3] = color.a / 255.0f;
+    glClearColor(color.r, color.g, color.b, color.a);
 }
 
 void context_Close(aura_Context* ctx)

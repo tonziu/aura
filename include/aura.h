@@ -12,16 +12,15 @@
 
 typedef struct
 {
-    int r;
-    int g;
-    int b;
-    int a;
+    float r;
+    float g;
+    float b;
+    float a;
 } aura_Color;
 
 typedef struct
 {
     GLFWwindow* window;
-    float bgcolor[4];
 } aura_Context;
 
 typedef struct
@@ -70,7 +69,7 @@ int  context_Init(int w, int h, const char* title, aura_Context* ctx);
 bool context_WindowShouldClose(aura_Context* ctx);
 void context_BeginFrame(aura_Context* ctx);
 void context_EndFrame(aura_Context* ctx);
-void context_SetBgColor(aura_Color color, aura_Context* ctx);
+void context_ClearColor(aura_Color color, aura_Context* ctx);
 void context_Close(aura_Context* ctx);
 
 // -------------------------------------------------------------------------------
@@ -110,6 +109,7 @@ int material_InitProgram(const char* vs_path, const char* fs_path,
                                                aura_Material* material);
 int material_GetUniformLocation(const char* name, int* loc, aura_Material* material);
 int material_SetUniformMat4(mat4 data, const char* name, aura_Material* material);
+int material_SetUniformVec4(vec4 data, const char* name, aura_Material* material);
 
 // -------------------------------------------------------------------------------
 
@@ -128,7 +128,8 @@ int renderable_Rectangle(aura_Renderable* renderable, int screen_w, int screen_h
 // -------------------------------------------------------------------------------
 
 int renderer_Init(aura_Renderer* renderer, int screen_w, int screen_h);
-void renderer_DrawRectangle(aura_Rectangle rect, aura_Renderer* renderer);
+void renderer_DrawRectangle(aura_Rectangle rect, aura_Color color,
+                            aura_Renderer* renderer);
 
 // -------------------------------------------------------------------------------
 

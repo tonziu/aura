@@ -12,8 +12,8 @@ int main(void)
         return AURA_ERROR;
     }
 
-    aura_Color bgcolor = {22, 22, 22, 255};
-    context_SetBgColor(bgcolor, &ctx);
+    aura_Color bgcolor = {22 / 255.0f, 22 / 255.0f, 22 / 255.0f, 1.0f};
+    context_ClearColor(bgcolor, &ctx);
 
     while (!context_WindowShouldClose(&ctx))
     {

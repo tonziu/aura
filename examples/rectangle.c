@@ -15,15 +15,16 @@ int main(void)
     ret = renderer_Init(&renderer, SCREEN_W, SCREEN_H);
     if (ret == AURA_ERROR) return AURA_ERROR;
 
-    aura_Color bgcolor = {22, 22, 22, 255};
-    context_SetBgColor(bgcolor, &ctx);
+    aura_Color bgcolor = {22 / 255.0f, 22 / 255.0f, 22 / 255.0f, 1.0f};
+    context_ClearColor(bgcolor, &ctx);
 
     aura_Rectangle rect = {200, 200, 400, 200};
+    aura_Color rectcolor = {20 / 255.0f, 250 / 255.0f, 80 / 255.0f, 1.0f};
 
     while (!context_WindowShouldClose(&ctx))
     {
         context_BeginFrame(&ctx);
-        renderer_DrawRectangle(rect, &renderer);
+        renderer_DrawRectangle(rect, rectcolor, &renderer);
         context_EndFrame(&ctx);
     }
 
