@@ -130,6 +130,8 @@ int renderable_Rectangle(aura_Renderable* renderable, int screen_w, int screen_h
 int renderer_Init(aura_Renderer* renderer, int screen_w, int screen_h);
 void renderer_DrawRectangle(aura_Rectangle rect, aura_Color color,
                             aura_Renderer* renderer);
+void renderer_DrawRectangleEx(aura_Rectangle rect, aura_Color color,
+                            float angle, vec3 axis, aura_Renderer* renderer);
 
 // -------------------------------------------------------------------------------
 

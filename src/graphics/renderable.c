@@ -19,13 +19,13 @@ int renderable_Rectangle(aura_Renderable* renderable, int screen_w, int screen_h
     
     float vertices[12] =
     {
-        0.0f, 0.0f,
-        1.0f, 0.0f,
-        1.0f, 1.0f,
+        -0.5f, -0.5f,
+         0.5f, -0.5f,
+         0.5f,  0.5f,
 
-        1.0f, 1.0f,
-        0.0f, 1.0f,
-        0.0f, 0.0f,
+         0.5f,  0.5f,
+        -0.5f,  0.5f,
+        -0.5f, -0.5f,
     };
 
     aura_VertexAttributeF pos_attr = {0, 2, 2, 0};

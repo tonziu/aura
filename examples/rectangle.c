@@ -20,11 +20,15 @@ int main(void)
 
     aura_Rectangle rect = {200, 200, 400, 200};
     aura_Color rectcolor = {20 / 255.0f, 250 / 255.0f, 80 / 255.0f, 1.0f};
+    vec3 axis = {0, 0, -1};
+    float angle = glm_rad(45);
 
     while (!context_WindowShouldClose(&ctx))
     {
         context_BeginFrame(&ctx);
-        renderer_DrawRectangle(rect, rectcolor, &renderer);
+        // renderer_DrawRectangle(rect, rectcolor, &renderer);
+        renderer_DrawRectangleEx(rect, rectcolor, angle, axis, &renderer);
+        angle += 0.01f;
         context_EndFrame(&ctx);
     }
 
