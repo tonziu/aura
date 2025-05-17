@@ -6,13 +6,14 @@
 #include "cglm/cglm.h"
 #include "ft2build.h"
 #include FT_FREETYPE_H
-
-#define AURA_MAX_GLYPHS 128
-
 #include <stdbool.h>
 
 #define AURA_OK    0
 #define AURA_ERROR 1
+#define AURA_MAX_GLYPHS 128
+#define AURA_RETRO_GREEN (aura_Color){75 / 255.0f, 105 / 255.0f, 47 / 255.0f, 1.0f}
+#define AURA_RETRO_YELLOW (aura_Color){228 / 255.0f, 216 / 255.0f, 172 / 255.0f, 1.0}
+#define AURA_RETRO_BROWN (aura_Color){102 / 255.0f, 57 / 255.0f, 49 / 255.0f, 1.0}
 
 typedef struct
 {
@@ -21,9 +22,6 @@ typedef struct
     float b;
     float a;
 } aura_Color;
-
-#define AURA_RETRO_GREEN {75 / 255.0f, 105 / 255.0f, 47 / 255.0f, 1.0f}
-#define AURA_RETRO_YELLOW {228 / 255.0f, 216 / 255.0f, 172 / 255.0f, 1.0}
 
 typedef struct
 {
@@ -66,6 +64,7 @@ typedef struct
 typedef struct
 {
     aura_Renderable rectangle;
+    aura_Renderable sprite;
 } aura_Renderer;
 
 typedef struct
@@ -90,6 +89,17 @@ typedef struct
     aura_Font font;
     aura_Renderable text;
 } aura_TextRenderer;
+
+typedef struct
+{
+    GLuint texture;
+    float x;
+    float y;
+    float w;
+    float h;
+    vec3 axis;
+    float angle;
+} aura_Sprite;
 
 // -------------------------------------------------------------------------------
 // Context Functions
@@ -125,6 +135,7 @@ void mesh_AddAttributeF(aura_VertexAttributeF attr, aura_Mesh* mesh);
 
 int utils_ReadTextFile(const char* filename, char* buffer, int len);
 int utils_LoadImage(const char* filename, GLFWimage* image);
+void utils_FreeImage(GLFWimage* image);
 // -------------------------------------------------------------------------------
 
 
@@ -151,6 +162,7 @@ int material_SetUniformVec4(vec4 data, const char* name, aura_Material* material
 
 int renderable_Rectangle(int screen_w, int screen_h, aura_Renderable* renderable);
 int renderable_Text(int screen_w, int screen_h, aura_Renderable* renderable);
+int renderable_Sprite(int screen_w, int screen_h, aura_Renderable* renderable);
 
 // -------------------------------------------------------------------------------
 
@@ -163,6 +175,7 @@ void renderer_DrawRectangle(aura_Rectangle rect, aura_Color color,
                             aura_Renderer* renderer);
 void renderer_DrawRectangleEx(aura_Rectangle rect, aura_Color color,
                             float angle, vec3 axis, aura_Renderer* renderer);
+void renderer_DrawSprite(aura_Sprite sprite, aura_Renderer* renderer);
 
 // -------------------------------------------------------------------------------
 
@@ -199,5 +212,13 @@ void textrenderer_DrawText(const char* text,
 float textrenderer_MeasureText(const char* text, float scale, 
                                 aura_TextRenderer* renderer);
 // -------------------------------------------------------------------------------/
+
+// -------------------------------------------------------------------------------
+// Sprite functions
+// -------------------------------------------------------------------------------
+
+int sprite_Init(const char* image, aura_Sprite* sprite);
+
+// -------------------------------------------------------------------------------
 
 #endif // H_AURA_H

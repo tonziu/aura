@@ -26,3 +26,8 @@ int utils_LoadImage(const char* filename, GLFWimage* image)
 
     return AURA_OK;
 }
+
+void utils_FreeImage(GLFWimage* image)
+{
+    stbi_image_free(image->pixels);
+}

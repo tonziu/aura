@@ -32,8 +32,12 @@ int context_Init(int w, int h, const char* title, aura_Context* ctx)
     utils_LoadImage("../resources/images/aura_logo_small.png", &icons[1]);
     utils_LoadImage("../resources/images/aura_logo_medium.png", &icons[2]);
     utils_LoadImage("../resources/images/aura_logo_large.png", &icons[3]);
-     
     glfwSetWindowIcon(ctx->window, 4, icons);
+
+    for (int i = 0; i < 4; ++i)
+    {
+        utils_FreeImage(&icons[i]);
+    }
 
     return AURA_OK;
 }
