@@ -25,7 +25,23 @@ typedef struct
 
 typedef struct
 {
+    int prev_state[GLFW_KEY_LAST + 1];
+    int curr_state[GLFW_KEY_LAST + 1];
+    bool consumed[GLFW_KEY_LAST + 1];
+} aura_Keyboard;
+
+typedef struct
+{
+    int prev_state[GLFW_MOUSE_BUTTON_LAST + 1];
+    int curr_state[GLFW_MOUSE_BUTTON_LAST + 1];
+    bool consumed[GLFW_MOUSE_BUTTON_LAST + 1];
+} aura_Mouse;
+
+typedef struct
+{
     GLFWwindow* window;
+    aura_Keyboard keyboard;
+    aura_Mouse mouse;
 } aura_Context;
 
 typedef struct
@@ -111,6 +127,8 @@ void context_BeginFrame(aura_Context* ctx);
 void context_EndFrame(aura_Context* ctx);
 void context_ClearColor(aura_Color color, aura_Context* ctx);
 void context_Close(aura_Context* ctx);
+bool context_KeyIsPressed(int key, aura_Context* ctx);
+void context_CloseWindow(aura_Context* ctx);
 
 // -------------------------------------------------------------------------------
 

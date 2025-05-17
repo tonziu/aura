@@ -1,5 +1,13 @@
 #include "aura.h"
 
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
+{
+    aura_Context* ctx = (aura_Context*) glfwGetWindowUserPointer(window);
+    ctx->keyboard.prev_state[key] = ctx->keyboard.curr_state[key];
+    ctx->keyboard.curr_state[key] = action;
+    ctx->keyboard.consumed[key] = false;
+}
+
 int context_Init(int w, int h, const char* title, aura_Context* ctx)
 {
     if (!glfwInit()) return AURA_ERROR;
@@ -15,17 +23,14 @@ int context_Init(int w, int h, const char* title, aura_Context* ctx)
 
     glfwMakeContextCurrent(ctx->window);
     glfwSwapInterval(1);
-    
+    glfwSetWindowUserPointer(ctx->window, ctx);
+    glfwSetKeyCallback(ctx->window, key_callback);
+
     if (!gladLoadGL()) return AURA_ERROR;
 
     glViewport(0, 0, w, h);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);  
-
-    GLFWimage icon_image_xs;
-    GLFWimage icon_image_s;
-    GLFWimage icon_image_m;
-    GLFWimage icon_image_l;
 
     GLFWimage icons[4];
     utils_LoadImage("../resources/images/aura_logo_extrasmall.png", &icons[0]);
@@ -68,4 +73,17 @@ void context_Close(aura_Context* ctx)
 {
     glfwDestroyWindow(ctx->window);
     glfwTerminate();
+}
+
+bool context_KeyIsPressed(int key, aura_Context* ctx)
+{
+    if (ctx->keyboard.consumed[key]) return false;
+    ctx->keyboard.consumed[key] = true;
+    bool is_down = ctx->keyboard.curr_state[key] == GLFW_PRESS;
+    return is_down;
+}
+
+void context_CloseWindow(aura_Context* ctx)
+{
+    glfwSetWindowShouldClose(ctx->window, true);
 }
