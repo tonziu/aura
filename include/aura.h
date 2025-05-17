@@ -30,5 +30,6 @@ bool context_WindowShouldClose(aura_Context* ctx);
 void context_BeginFrame(aura_Context* ctx);
 void context_EndFrame(aura_Context* ctx);
 void context_SetBgColor(aura_Color color, aura_Context* ctx);
+void context_Close(aura_Context* ctx);
 
 #endif // H_AURA_H

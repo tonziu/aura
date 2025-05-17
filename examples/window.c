@@ -21,5 +21,7 @@ int main(void)
         context_EndFrame(&ctx);
     }
 
+    context_Close(&ctx);
+
     return AURA_OK;
 }

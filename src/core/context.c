@@ -49,3 +49,9 @@ void context_SetBgColor(aura_Color color, aura_Context* ctx)
     ctx->bgcolor[2] = color.b / 255.0f;
     ctx->bgcolor[3] = color.a / 255.0f;
 }
+
+void context_Close(aura_Context* ctx)
+{
+    glfwDestroyWindow(ctx->window);
+    glfwTerminate();
+}
