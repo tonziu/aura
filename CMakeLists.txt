@@ -9,6 +9,8 @@ set(AURA_SRC_FILES src/core/context.c
                    src/core/mesh.c
                    src/core/material.c
                    src/core/sprite.c
+                   src/core/spritesheet.c
+                   src/core/timer.c
                    src/utils/utils.c
                    src/graphics/renderable.c
                    src/graphics/renderer.c
@@ -25,6 +27,7 @@ add_executable(Text examples/text.c ${AURA_SRC_FILES})
 add_executable(Sprite examples/sprite.c ${AURA_SRC_FILES})
 add_executable(Keyboard examples/keyboard.c ${AURA_SRC_FILES})
 add_executable(Mouse examples/mouse.c ${AURA_SRC_FILES})
+add_executable(Animation examples/animation.c ${AURA_SRC_FILES})
 
 target_link_libraries(Window PRIVATE ${AURA_LIBS})
 target_link_libraries(Rectangle PRIVATE ${AURA_LIBS})
@@ -32,5 +35,6 @@ target_link_libraries(Text PRIVATE ${AURA_LIBS})
 target_link_libraries(Sprite PRIVATE ${AURA_LIBS})
 target_link_libraries(Keyboard PRIVATE ${AURA_LIBS})
 target_link_libraries(Mouse PRIVATE ${AURA_LIBS})
+target_link_libraries(Animation PRIVATE ${AURA_LIBS})
 
 

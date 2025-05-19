@@ -98,3 +98,14 @@ int material_SetUniformVec4(vec4 data, const char* name, aura_Material* material
 
     return AURA_OK;
 }
+
+int material_SetUniformFloat(float data, const char* name, aura_Material* material)
+{
+    int loc, ret;
+    ret = material_GetUniformLocation(name, &loc, material);
+    if (ret == AURA_ERROR) return ret;
+
+    glUniform1f(loc, data);
+
+    return AURA_OK;
+}

@@ -85,6 +85,7 @@ typedef struct
 {
     aura_Renderable rectangle;
     aura_Renderable sprite;
+    aura_Renderable spritesheet;
 } aura_Renderer;
 
 typedef struct
@@ -120,6 +121,21 @@ typedef struct
     vec3 axis;
     float angle;
 } aura_Sprite;
+
+typedef struct
+{
+    double rate;
+    double start;
+} aura_Timer;
+
+typedef struct
+{
+    aura_Sprite sprite;
+    int rows;
+    int cols;
+    int frame;
+    aura_Timer timer;
+} aura_Spritesheet;
 
 // -------------------------------------------------------------------------------
 // Context Functions
@@ -175,6 +191,7 @@ int material_InitProgram(const char* vs_path, const char* fs_path,
 int material_GetUniformLocation(const char* name, int* loc, aura_Material* material);
 int material_SetUniformMat4(mat4 data, const char* name, aura_Material* material);
 int material_SetUniformVec4(vec4 data, const char* name, aura_Material* material);
+int material_SetUniformFloat(float data, const char* name, aura_Material* material);
 
 // -------------------------------------------------------------------------------
 
@@ -187,6 +204,7 @@ int material_SetUniformVec4(vec4 data, const char* name, aura_Material* material
 int renderable_Rectangle(int screen_w, int screen_h, aura_Renderable* renderable);
 int renderable_Text(int screen_w, int screen_h, aura_Renderable* renderable);
 int renderable_Sprite(int screen_w, int screen_h, aura_Renderable* renderable);
+int renderable_Spritesheet(int screen_w, int screen_h, aura_Renderable* renderable);
 
 // -------------------------------------------------------------------------------
 
@@ -200,6 +218,7 @@ void renderer_DrawRectangle(aura_Rectangle rect, aura_Color color,
 void renderer_DrawRectangleEx(aura_Rectangle rect, aura_Color color,
                             float angle, vec3 axis, aura_Renderer* renderer);
 void renderer_DrawSprite(aura_Sprite sprite, aura_Renderer* renderer);
+void renderer_DrawSpritesheet(aura_Spritesheet spritesheet, int row, aura_Renderer* renderer);
 
 // -------------------------------------------------------------------------------
 
@@ -245,4 +264,24 @@ int sprite_Init(const char* image, aura_Sprite* sprite);
 
 // -------------------------------------------------------------------------------
 
+
+
+// -------------------------------------------------------------------------------
+// Spritesheet functions
+// -------------------------------------------------------------------------------
+
+int spritesheet_Init(const char* image, aura_Spritesheet* spritesheet);
+void spritesheet_Tick(double now, aura_Spritesheet* spritesheet);
+
+// -------------------------------------------------------------------------------
+
+
+
+// -------------------------------------------------------------------------------
+// Timer functions
+// -------------------------------------------------------------------------------
+
+bool timer_Tick(double now, aura_Timer* timer);
+
+// -------------------------------------------------------------------------------
 #endif // H_AURA_H
